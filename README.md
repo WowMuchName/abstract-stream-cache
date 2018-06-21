@@ -1,4 +1,11 @@
 # Abstract-Stream-Cache
+[![Build Status](https://travis-ci.org/WowMuchName/abstract-stream-cache.svg?branch=master)](https://travis-ci.org/WowMuchName/abstract-stream-cache)
+[![Known Vulnerabilities](https://snyk.io/test/github/WowMuchName/abstract-stream-cache/badge.svg?targetFile=package.json)](https://snyk.io/test/github/WowMuchName/abstract-stream-cache?targetFile=package.json)
+#[![Test Coverage](https://api.codeclimate.com/v1/badges/fbc64ce6fcfe79f6a6a7/test_coverage)](https://codeclimate.com/github/WowMuchName/abstract-stream-cache/test_coverage)
+#[![Maintainability](https://api.codeclimate.com/v1/badges/fbc64ce6fcfe79f6a6a7/maintainability)](https://codeclimate.com/github/WowMuchName/abstract-stream-cache/maintainability)
+#[![Dependencies](https://david-dm.org/WowMuchName/abstract-stream-cache.svg)](https://david-dm.org/WowMuchName/abstract-stream-cache#info=dependencies)
+#[![NPM](https://nodei.co/npm/abstract-stream-cache.png?compact=true)](https://nodei.co/npm/abstract-stream-cache/)
+
 Provides utilities for creating Stream-Caches for javascript and typescript projects.
 
 ## BufferBuilder
