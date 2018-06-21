@@ -1,0 +1,9 @@
+node_modules
+coverage
+.nyc_output
+lib
+test
+tslint.json
+.vscode
+.gitignore
+temp

@@ -1,0 +1,16 @@
+{
+    "defaultSeverity": "warning",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {
+        "only-arrow-functions": false,
+        "space-before-function-paren": false
+    },
+    "rules": {
+        "only-arrow-functions": false,
+        "space-before-function-paren": false,
+        "ban-types": false
+    },
+    "rulesDirectory": []
+}
