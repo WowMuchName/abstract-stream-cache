@@ -6,7 +6,10 @@ export class BufferBuilder {
         if (BufferBuilder.isBuffer(data)) {
             return data as Buffer;
         }
-        return new Buffer(data.toString(), encoding || BufferBuilder.defaultEncoding);
+        if (typeof encoding === "string") {
+            return new Buffer(data.toString(), encoding || BufferBuilder.defaultEncoding);
+        }
+        return new Buffer(data.toString());
     }
 
     public static isBuffer(obj: any) {

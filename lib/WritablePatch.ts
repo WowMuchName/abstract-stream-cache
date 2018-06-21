@@ -9,33 +9,30 @@ import {
     BufferBuilder,
 } from "./BufferBuilder";
 
+function conditionallyInvoke(...functions: any[]) {
+    for (const fun of functions) {
+        if (typeof fun === "function") {
+            fun();
+        }
+    }
+}
+
 export function interceptWritable(writable: Writable): Observable<Buffer> {
     const origWrite = writable.write;
     const origEnd = writable.end;
     const subject: Subject < Buffer > = new Subject();
     const failWithError = (error: any) => {
         subject.error(error);
-        subject.error(error);
         writable.write = origWrite;
         writable.end = origEnd;
-        subject.complete();
     };
+
     writable.write = (function () {
         // write(chunk: any, cb?: Function): boolean;
         // write(chunk: any, encoding?: string, cb?: Function): boolean;
         try {
-            let buffer: Buffer;
-            if (typeof arguments[1] === "string") {
-                buffer = BufferBuilder.toBuffer(arguments[0], arguments[1]);
-            } else { // undefined or Function
-                buffer = BufferBuilder.toBuffer(arguments[0]);
-            }
-            subject.next(buffer);
-            if (typeof arguments[1] === "function") {
-                arguments[1]();
-            } else if (typeof arguments[2] === "function") {
-                arguments[2]();
-            }
+            subject.next(BufferBuilder.toBuffer(arguments[0], arguments[1]));
+            conditionallyInvoke(arguments[1], arguments[2]);
         } catch (error) {
             failWithError(error);
         }
@@ -46,21 +43,9 @@ export function interceptWritable(writable: Writable): Observable<Buffer> {
         // end(chunk: any, encoding?: string, cb?: Function): void;
         try {
             if (typeof arguments[0] !== "undefined" && typeof arguments[0] !== "function") {
-                let buffer: Buffer;
-                if (typeof arguments[1] === "string") {
-                    buffer = BufferBuilder.toBuffer(arguments[0], arguments[1]);
-                } else { // Buffer
-                    buffer = BufferBuilder.toBuffer(arguments[0]);
-                }
-                subject.next(buffer);
+                subject.next(BufferBuilder.toBuffer(arguments[0], arguments[1]));
             }
-            if (typeof arguments[1] === "function") {
-                arguments[1]();
-            } else if (typeof arguments[2] === "function") {
-                arguments[2]();
-            } else if (typeof arguments[0] === "function") {
-                arguments[0]();
-            }
+            conditionallyInvoke(arguments[0], arguments[1], arguments[2]);
             writable.write = origWrite;
             writable.end = origEnd;
             subject.complete();
