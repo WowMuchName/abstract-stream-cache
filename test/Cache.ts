@@ -34,7 +34,7 @@ try {
     mkdirSync("temp/cache2");
 } catch (e) {
 }
-writeFileSync("temp/file1in", new Buffer("Hello World"));
+writeFileSync("temp/file1in", Buffer.from("Hello World"));
 //    done();
 // });
 

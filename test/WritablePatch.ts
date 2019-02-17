@@ -90,34 +90,34 @@ describe("WritablePath", function () {
         it("should forward the buffers to the observable", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("Hello")),
-                result(new Buffer(" World")),
-                result(new Buffer("!")),
+                result(Buffer.from("Hello")),
+                result(Buffer.from(" World")),
+                result(Buffer.from("!")),
             ]);
             ws.write("Hello");
-            ws.write(new Buffer(" World"));
+            ws.write(Buffer.from(" World"));
             ws.end("!");
             return res;
         });
         it("should support different encodings", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("ÄÖÜ")),
+                result(Buffer.from("ÄÖÜ")),
             ]);
-            ws.write(new Buffer("ÄÖÜ", "utf8").toString("latin1"), "latin1");
+            ws.write(Buffer.from("ÄÖÜ", "utf8").toString("latin1"), "latin1");
             ws.end();
             return res;
         });
         it("should invoke the callbacks (I/V)", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("A")),
-                result(new Buffer("B")),
+                result(Buffer.from("A")),
+                result(Buffer.from("B")),
             ]);
             let doneA = false;
             let doneB = false;
             let doneC = false;
-            ws.write(new Buffer("A"), () => {
+            ws.write(Buffer.from("A"), () => {
                 doneA = true;
             });
             ws.write("B", () => {
@@ -135,7 +135,7 @@ describe("WritablePath", function () {
         it("should invoke the callbacks (II/V)", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("A")),
+                result(Buffer.from("A")),
             ]);
             let doneA = false;
             ws.end("A", () => {
@@ -146,10 +146,10 @@ describe("WritablePath", function () {
         it("should invoke the callbacks (III/V)", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("A")),
+                result(Buffer.from("A")),
             ]);
             let doneA = false;
-            ws.end(new Buffer("A"), () => {
+            ws.end(Buffer.from("A"), () => {
                 doneA = true;
             });
             return res.then(() => assert.isTrue(doneA));
@@ -157,7 +157,7 @@ describe("WritablePath", function () {
         it("should invoke the callbacks (IV/V)", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("A")),
+                result(Buffer.from("A")),
             ]);
             let doneA = false;
             ws.end("A", "utf8", () => {
@@ -168,7 +168,7 @@ describe("WritablePath", function () {
         it("should invoke the callbacks (V/V)", () => {
             const ws = createWriteStream("temp/testfile.txt");
             const res: Promise<void> = testObservable(interceptWritable(ws), [
-                result(new Buffer("A")),
+                result(Buffer.from("A")),
             ]);
             let doneA = false;
             ws.write("A", "utf8", () => {
@@ -198,30 +198,30 @@ describe("WritablePath", function () {
         it("should forward the buffers to the observable in chunked mode", () => {
             const ws = createWriteStream("temp/testfile2.txt");
             const res: Promise<void> = testObservable(mapWritable(ws, true), [
-                result(new Buffer("Hello")),
-                result(new Buffer(" World")),
-                result(new Buffer("!")),
+                result(Buffer.from("Hello")),
+                result(Buffer.from(" World")),
+                result(Buffer.from("!")),
             ]);
             ws.write("Hello");
-            ws.write(new Buffer(" World"));
+            ws.write(Buffer.from(" World"));
             ws.end("!");
             return res;
         });
         it("should have create the output file for chunked mode", () => {
-            assert.deepEqual(readFileSync("temp/testfile2.txt"), new Buffer("Hello World!"));
+            assert.deepEqual(readFileSync("temp/testfile2.txt"), Buffer.from("Hello World!"));
         });
         it("should forward the buffers to the observable in unchunked mode", () => {
             const ws = createWriteStream("temp/testfile3.txt");
             const res: Promise<void> = testObservable(mapWritable(ws), [
-                result(new Buffer("Hello World!")),
+                result(Buffer.from("Hello World!")),
             ]);
             ws.write("Hello");
-            ws.write(new Buffer(" World"));
+            ws.write(Buffer.from(" World"));
             ws.end("!");
             return res;
         });
         it("should have create the output file for unchunked mode", () => {
-            assert.deepEqual(readFileSync("temp/testfile3.txt"), new Buffer("Hello World!"));
+            assert.deepEqual(readFileSync("temp/testfile3.txt"), Buffer.from("Hello World!"));
         });
         it("should forward errors in end when in unchunked mode", () => {
             const ws = createWriteStream("temp/testfile.txt");

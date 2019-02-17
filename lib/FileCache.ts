@@ -14,10 +14,10 @@ export class FileStreamCacheBackend<K> implements IStreamCacheBackend<K> {
     constructor(private rootPath: string, decoder?: IStringDecoder<K>) {
         this.decoder = decoder || {
             asString(key: K): string {
-                return new Buffer(JSON.stringify(key)).toString("base64").replace("/", "_");
+                return Buffer.from(JSON.stringify(key)).toString("base64").replace("/", "_");
             },
             asKey(str: string): K {
-                return JSON.parse(new Buffer(str.replace("_", "/"), "base64").toString("utf8"));
+                return JSON.parse(Buffer.from(str.replace("_", "/"), "base64").toString("utf8"));
             },
         };
     }

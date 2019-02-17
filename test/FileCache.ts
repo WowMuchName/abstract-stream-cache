@@ -28,7 +28,7 @@ describe("FileStreamCacheBackend", () => {
             });
         });
         it("should have create the output file", () => {
-            assert.deepEqual(readFileSync("temp/cache/InRlc3QxIg=="), new Buffer("Test1: HelloWorld!"));
+            assert.deepEqual(readFileSync("temp/cache/InRlc3QxIg=="), Buffer.from("Test1: HelloWorld!"));
         });
         it("should be possible to put a cache-item again", () => {
             const fc: FileStreamCacheBackend<string> = new FileStreamCacheBackend("temp/cache");

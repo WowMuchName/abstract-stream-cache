@@ -1,46 +1,12 @@
 # Abstract-Stream-Cache
 [![Build Status](https://travis-ci.org/WowMuchName/abstract-stream-cache.svg?branch=master)](https://travis-ci.org/WowMuchName/abstract-stream-cache)
 [![Known Vulnerabilities](https://snyk.io/test/github/WowMuchName/abstract-stream-cache/badge.svg?targetFile=package.json)](https://snyk.io/test/github/WowMuchName/abstract-stream-cache?targetFile=package.json)
-#[![Test Coverage](https://api.codeclimate.com/v1/badges/fbc64ce6fcfe79f6a6a7/test_coverage)](https://codeclimate.com/github/WowMuchName/abstract-stream-cache/test_coverage)
-#[![Maintainability](https://api.codeclimate.com/v1/badges/fbc64ce6fcfe79f6a6a7/maintainability)](https://codeclimate.com/github/WowMuchName/abstract-stream-cache/maintainability)
-#[![Dependencies](https://david-dm.org/WowMuchName/abstract-stream-cache.svg)](https://david-dm.org/WowMuchName/abstract-stream-cache#info=dependencies)
-#[![NPM](https://nodei.co/npm/abstract-stream-cache.png?compact=true)](https://nodei.co/npm/abstract-stream-cache/)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/fbc64ce6fcfe79f6a6a7/test_coverage)](https://codeclimate.com/github/WowMuchName/abstract-stream-cache/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fbc64ce6fcfe79f6a6a7/maintainability)](https://codeclimate.com/github/WowMuchName/abstract-stream-cache/maintainability)
+[![Dependencies](https://david-dm.org/WowMuchName/abstract-stream-cache.svg)](https://david-dm.org/WowMuchName/abstract-stream-cache#info=dependencies)
+[![NPM](https://nodei.co/npm/abstract-stream-cache.png?compact=true)](https://nodei.co/npm/abstract-stream-cache/)
 
 Provides utilities for creating Stream-Caches for javascript and typescript projects.
-
-## BufferBuilder
-Provides miscellaneous methods for working with buffers
-
-### Merging buffers
-Buffers and strings can be merged into a buffer using the *append* method.
-It supports the same parameter-types as the buffer-constructor.
-
-```ts
-let bufferBuilder: BufferBuilder = new BufferBuilder();
-
-bufferBuilder.append(new Buffer("Any Buffer"));
-bufferBuilder.append("Any String");
-bufferBuilder.append("Any Èncoding", "latin1");
-
-let mergedBuffer: Buffer = bufferBuilder.getBuffer();
-```
-
-### isBuffer
-Utility method that detects buffers.
-
-```js
-// Detect buffers
-assert.isTrue(BufferBuilder.isBuffer(new Buffer("")));
-
-// ... and nothing else
-assert.isTrue(!BufferBuilder.isBuffer({}));
-assert.isTrue(!BufferBuilder.isBuffer(1));
-assert.isTrue(!BufferBuilder.isBuffer("1"));
-assert.isTrue(!BufferBuilder.isBuffer(undefined));
-assert.isTrue(!BufferBuilder.isBuffer(null));
-assert.isTrue(!BufferBuilder.isBuffer([]));
-assert.isTrue(!BufferBuilder.isBuffer(() => {}));
-```
 
 ## WritablePatch
 Used to modify nodejs' [writable](https://nodejs.org/dist/latest-v8.x/docs/api/stream.html#stream_class_stream_writable).

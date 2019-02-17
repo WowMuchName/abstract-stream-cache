@@ -5,9 +5,8 @@ import {
 import {
     Writable,
 } from "stream";
-import {
-    BufferBuilder,
-} from "./BufferBuilder";
+
+import {BufferBuilder} from "ts-bufferbuilder";
 
 function conditionallyInvoke(...functions: any[]) {
     for (const fun of functions) {
@@ -69,15 +68,15 @@ export function mapWritable(writable: Writable, chunked?: boolean): Observable<B
         }, (err) => {
             subject.error(err);
         }, () => {
-            const fullData: Buffer = builder.getBuffer();
-            origEnd(fullData, () => {
+            const fullData: Buffer = builder.toBuffer();
+            origEnd(fullData, "utf8", () => {
                 subject.next(fullData);
                 subject.complete();
             });
         });
     } else {
         inputObservable.subscribe(
-            (chunk) => origWrite(chunk, () => subject.next(chunk)),
+            (chunk) => origWrite(chunk, "utf8", () => subject.next(chunk)),
             (error) => subject.error(error),
             () => origEnd(() => subject.complete()),
         );
